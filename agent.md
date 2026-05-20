@@ -41,6 +41,8 @@ PCLoveGame 是一个基于 Unity `2022.3.17f1c1` 的 PC 恋爱游戏项目。当
 
 ## 给 AI 的工作提示
 
+- 每次 AI 生成、修改、重构代码前，必须先遵循 `docs/coding-standards.md` 中定义的代码格式规范
+- 如果新增脚本、调整目录或补充模块结构，应优先与 `docs/coding-standards.md` 保持一致
 - 将当前仓库视为早期脚手架，不要默认已存在完整玩法系统
 - 在提出升级建议前先检查 `ProjectSettings/ProjectVersion.txt`
 - 新增、移动、重命名资源时要连同 Unity `.meta` 文件一起处理
