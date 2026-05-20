@@ -165,10 +165,50 @@ namespace PCLoveGame.UI
         {
             if (_cachedFont == null)
             {
-                _cachedFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+                _cachedFont = LoadBuiltinFont();
+
+                if (_cachedFont == null)
+                {
+                    _cachedFont = Font.CreateDynamicFontFromOSFont(
+                        new[] { "Arial", "Microsoft YaHei", "SimHei", "Segoe UI" },
+                        16);
+                }
+
+                if (_cachedFont == null)
+                {
+                    Debug.LogError("[UiFactory] 无法获取可用字体，请在项目中补充一个可用的 UI 字体资源。");
+                }
             }
 
             return _cachedFont;
+        }
+
+        private static Font LoadBuiltinFont()
+        {
+            string[] builtinFontCandidates =
+            {
+                "LegacyRuntime.ttf",
+                "Arial.ttf"
+            };
+
+            foreach (string fontPath in builtinFontCandidates)
+            {
+                try
+                {
+                    Font font = Resources.GetBuiltinResource<Font>(fontPath);
+
+                    if (font != null)
+                    {
+                        return font;
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    // Ignore and continue trying the next fallback font.
+                }
+            }
+
+            return null;
         }
 
         private static void SetTextPadding(RectTransform rectTransform, float padding)
